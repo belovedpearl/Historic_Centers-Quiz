@@ -63,27 +63,27 @@
 
       <!-- Geame area -->
     <section id="game" class="hide">
-        <img src="assets/images/quizImages/worldrep.webp">
+        <img src="assets/images/quizImages/worldrep.webp" id="questionImage">
         <div id="optionArea">
-            <button class="optionAreabtn">Option1</button>
+            <p id="option1" class="choice">Option1</p>
             <br>
-            <button class="optionAreabtn">Option2</button>
+            <p id="option2" class="choice">Option2</p>
             <br>
-            <button class="optionAreabtn">Option3</button>
+            <p id="option3" class="choice">Option3</p>
             <br>
-            <button class="optionAreabtn">Option4</button>
+            <p id="option4" class="choice">Option4</p>
             <br>
-            <button id="nextQuest" class="optionAreabtn">Next</button>
+            <button id="nextQuest" onclick="nextBtn()">Next</button>
         </div>
 
         <div id="recordArea">
-            <div class="circle">0</div>
+            <div id="points" class="circle">0</div>
             <p>Correct</p>
 
             <div id="time">0</div>
             <div id="ansQues"><span>3</span>/10</div>
 
-            <div class="circle">0</div>
+            <div id="wrong" class="circle">0</div>
             <p>Missed</p>
 
         </div>

@@ -36,7 +36,7 @@ questions = [
     },
     {
         question: "assets/images/quizImages/forbidden-city-beijing.webp",
-        options: ["Forbidden City Beijing","Tranducheng Shangai",option3: "Nanjing Road China","Lingerin Garden Budha"],
+        options: ["Forbidden City Beijing","Tranducheng Shangai","Nanjing Road China","Lingerin Garden Budha"],
         answer: "Forbidden City Beijing"
     },
     {
@@ -81,7 +81,7 @@ questions = [
         answer: "Petra Jordan"
     },
     {
-        question: "assets/images/quizImage/pyramid-of-kukulkan.webp",
+        question: "assets/images/quizImage/pyramid-of-kukulkan",
         options: ["Pyramid of Tiza Mexico","Pyramid of Kukulkan","Pyramid of Giza","Pyramid of Cholula Mexico"],
         answer: "Pyramid of Kukulkan"
     },
@@ -102,6 +102,9 @@ questions = [
     },
     
 ]
+
+let questioncounter = 0;
+
 
 function instruct(){
     document.getElementById("firstPage").classList.add("hide"); 
@@ -142,11 +145,86 @@ function startGame(){
     runGame()
 }
 
-function runGame(question){
+
+
+function runGame(){
+    questioncounter++;
+    console.log(questioncounter)
+    if (questioncounter > 10){
+        return questioncounter
+    }else if(questioncounter <= 10){
     const questionIndex = Math.floor(Math.random() * 5);
-    let availableQuestion = question
-    console.log(availableQuestion)
-    let currentQuestion = availableQuestion[questionIndex];
+    let currentQuestion = questions[questionIndex];
+
+    let image = document.getElementById("questionImage");
+    image.src = currentQuestion.question;
+    
+    let choice1 = document.getElementById("option1");
+    choice1.innerText = currentQuestion.options[0];
+    let choice2 = document.getElementById("option2");
+    choice2.innerText = currentQuestion.options[1];
+    let choice3 = document.getElementById("option3");
+    choice3.innerText = currentQuestion.options[2];
+    let choice4 = document.getElementById("option4");
+    choice4.innerText = currentQuestion.options[3];
+    // Splice is used to remove the current question from the available questions to avoid repitition of questions
+    questions.splice(questionIndex, 1) 
+    chooseCorrect(currentQuestion)
+    
+    countdown()
+    }
+}
+
+function countdown(){
+    let counter = 10;
+    const interval = setInterval(()=>{
+    let time = document.getElementById("time");
+    time.innerText = counter--;
+    if(counter === 0){
+        time.innerText = "Time Up!!!"
+        clearInterval(interval)
+    let wrong = document.getElementById("wrong").innerText;
+        document.getElementById('wrong').innerText = ++wrong;
+        nextBtn();
+        increaseWrong()
+     }
+    }, 1000)
+}
+
+function chooseCorrect(question){
+    correctAns = question.answer
+    console.log(correctAns)
+    let choices = document.getElementsByClassName("choice")
+    for (let choice of choices){
+        choice.addEventListener("click", e => {
+            let selectAns = e.target;
+            console.log(selectAns)
+              if (selectAns.innerText === correctAns){
+                 choice.classList.add("correct") 
+                increaseScore()
+                
+             }else{
+                   choice.classList.add("wrong")
+                   increaseWrong()
+           } 
+           runGame()
+        })
+    }
+}
+
+ function nextBtn(){
+    runGame()   
+}
+
+
+function increaseScore(){
+    let score = document.getElementById("points").innerText;
+    document.getElementById('points').innerText = ++score;
+}
+
+function increaseWrong(){
+    let wrong = document.getElementById("wrong").innerText;
+    document.getElementById('wrong').innerText = ++wrong;
 }
 
 
