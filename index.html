@@ -20,9 +20,9 @@
         <h1> Historic Center Quiz </h1>
 
         <div>
-            <button id="instruct" onclick="instruct()">Instructions</button>
+            <button id="instruct" onclick="instruct()" aria-label="Read the Instruction">Instructions</button>
             <br>
-            <button id="enterName" onclick="enterName()">Enter Name</button>
+            <button id="enterName" onclick="enterName()" aria-label="Press to Play">Enter Name</button>
         </div>
 
     </section>
@@ -32,9 +32,9 @@
 
         <h1> Historic Center Quiz </h1>
 
-        <input id="nameValue" type="text" placeholder="Enter Your Name">
+        <input id="nameValue" type="text" placeholder="Enter Your Name" aria-label="Enter your name" required>
         <br>
-        <button id="submit" onclick="submit()">Submit</button>
+        <button id="submit" onclick="submit()" aria-label="Submit button">Submit</button>
 
     </section>
      
@@ -43,7 +43,7 @@
         <h2 id="welcomePage">Welcome <span id="playerName"></span>,<br> Can you identify these locations?</h2>
         <p>Find out how much of the world historic centers you know.</p>
 
-        <button onclick="startGame()">Start Game</button>
+        <button onclick="startGame()" aria-label="Start Game">Start Game</button>
     </section>
 
      <!-- Instructions body -->
@@ -57,7 +57,7 @@
             <li>You have 15 seconds to identify each location.</li>
             <li>A green color on the button indicates you choosed the right answer and red color indicates you have chosen the wrong answer.</li>
           </ul>
-          <button id="backFromInstruct" onclick="backHome()">Home</button>
+          <button id="backFromInstruct" onclick="backHome()" aria-label="Exit the Instruction Page">Home</button>
         </div>
     </section>
 
@@ -65,15 +65,12 @@
     <section id="game" class="hide">
         <img src="assets/images/quizImages/worldrep.webp" id="questionImage">
         <div id="optionArea">
-            <p id="option1" class="choice">Option1</p>
+            <p id="option1" class="choice" aria-label="Option 1">Option1</p>
+            <p id="option2" class="choice" aria-label="Option 2">Option2</p>
+            <p id="option3" class="choice" aria-label="Option 3">Option3</p>
+            <p id="option4" class="choice" aria-label="Option 4">Option4</p>
             <br>
-            <p id="option2" class="choice">Option2</p>
-            <br>
-            <p id="option3" class="choice">Option3</p>
-            <br>
-            <p id="option4" class="choice">Option4</p>
-            <br>
-            <button id="nextQuest" onclick="nextBtn()">Next</button>
+            <button id="nextQuest" onclick="nextBtn()" aria-label="Go to the Next Question">Next</button>
         </div>
 
         <div id="recordArea">
