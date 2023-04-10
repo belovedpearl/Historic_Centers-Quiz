@@ -18,8 +18,7 @@ body{
     align-items: center;
 }
 button,
-#nestQuest,
-.choice{
+#nestQuest{
     margin: 5px;
     width: 250px;
     height: 60px;
@@ -109,9 +108,18 @@ img{
     height: 100%;
 }
 .choice{
+    margin: 5px;
+    width: 300px;
+    font-size: 150%;
+    border-radius: 20px;
+    font-weight: 900; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     color: black;
-    text-align: center;
+   
+    height: 70px;
  }
 
 #recordArea{

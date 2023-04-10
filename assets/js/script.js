@@ -126,9 +126,7 @@ function submit(){
     document.getElementById("nameArea").classList.add("hide");
     let welcomePage = document.getElementById("welcome");
     welcomePage.classList.remove("hide");
-    //console.log(name)
     welcome(name)
-    //return name
 }
 
 function welcome(name){
@@ -148,8 +146,9 @@ function startGame(){
 
 
 function runGame(){
+    let questionNumber = document.getElementById("questionNum");
     questioncounter++;
-    console.log(questioncounter)
+    questionNumber.textContent = questioncounter;
     if (questioncounter > 10){
         return questioncounter
     }else if(questioncounter <= 10){
@@ -184,10 +183,10 @@ function countdown(){
         time.innerText = "Time Up!!!"
         clearInterval(interval)
     let wrong = document.getElementById("wrong").innerText;
-        document.getElementById('wrong').innerText = ++wrong;
-        nextBtn();
-        increaseWrong()
-     }
+    wrong.innerText = ++wrong;
+    nextBtn();
+    increaseWrong()
+    }
     }, 1000)
 }
 
