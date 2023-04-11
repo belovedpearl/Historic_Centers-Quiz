@@ -1,4 +1,5 @@
-questions = [
+
+let questions = [
     {
         question: "assets/images/quizImages/acropolis-athens.webp",
         options: ["Acapolis Athens","Athens Lavent","Acapolis Lavent", "Lavent Acapolis"],
@@ -101,7 +102,9 @@ questions = [
         answer: "Westminster Palace London"
     },
     
-]
+];
+
+let currentQuestion = null;
 
 let questioncounter = 0;
 
@@ -140,80 +143,49 @@ function startGame(){
     gameStartArea.classList.remove("hide");
     let welcomePage = document.getElementById("welcome");
     welcomePage.classList.add("hide");
+
     runGame()
 }
 
 
 
 function runGame(){
+    resetOptions();
     let questionNumber = document.getElementById("questionNum");
-    questioncounter++;
-    questionNumber.textContent = questioncounter;
+    questionNumber.innerText = questioncounter++;
+   
     if (questioncounter > 10){
         return questioncounter
-    }else if(questioncounter <= 10){
-    const questionIndex = Math.floor(Math.random() * 5);
-    let currentQuestion = questions[questionIndex];
+        }else if(questioncounter <= 10){
+        const questionIndex = Math.floor(Math.random() * 5);
+        currentQuestion = questions[questionIndex];
 
-    let image = document.getElementById("questionImage");
-    image.src = currentQuestion.question;
-    
-    let choice1 = document.getElementById("option1");
-    choice1.innerText = currentQuestion.options[0];
-    let choice2 = document.getElementById("option2");
-    choice2.innerText = currentQuestion.options[1];
-    let choice3 = document.getElementById("option3");
-    choice3.innerText = currentQuestion.options[2];
-    let choice4 = document.getElementById("option4");
-    choice4.innerText = currentQuestion.options[3];
-    // Splice is used to remove the current question from the available questions to avoid repitition of questions
-    questions.splice(questionIndex, 1) 
-    chooseCorrect(currentQuestion)
-    
-    countdown()
+        let image = document.getElementById("questionImage");
+        image.src = currentQuestion.question;
+        
+        let choice1 = document.getElementById("option1");
+        choice1.innerText = currentQuestion.options[0];
+        let choice2 = document.getElementById("option2");
+        choice2.innerText = currentQuestion.options[1];
+        let choice3 = document.getElementById("option3");
+        choice3.innerText = currentQuestion.options[2];
+        let choice4 = document.getElementById("option4");
+        choice4.innerText = currentQuestion.options[3];
+        // Splice is used to remove the current question from the available questions to avoid repitition of questions
+        questions.splice(questionIndex, 1) 
+        // chooseCorrect(currentQuestion)
     }
 }
 
-function countdown(){
-    let counter = 10;
-    const interval = setInterval(()=>{
-    let time = document.getElementById("time");
-    time.innerText = counter--;
-    if(counter === 0){
-        time.innerText = "Time Up!!!"
-        clearInterval(interval)
-    let wrong = document.getElementById("wrong").innerText;
-    wrong.innerText = ++wrong;
-    nextBtn();
-    increaseWrong()
-    }
-    }, 1000)
-}
 
-function chooseCorrect(question){
-    correctAns = question.answer
-    console.log(correctAns)
-    let choices = document.getElementsByClassName("choice")
-    for (let choice of choices){
-        choice.addEventListener("click", e => {
-            let selectAns = e.target;
-            console.log(selectAns)
-              if (selectAns.innerText === correctAns){
-                 choice.classList.add("correct") 
-                increaseScore()
-                
-             }else{
-                   choice.classList.add("wrong")
-                   increaseWrong()
-           } 
-           runGame()
-        })
+function disableClick(){
+    let options = document.getElementsByClassName("choice");
+    console.log(options)
+    for (let option of options){
+        option.disabled = true;
     }
 }
 
- function nextBtn(){
-    runGame()   
-}
 
 
 function increaseScore(){
@@ -230,5 +202,59 @@ function increaseWrong(){
 
 
 
+// New code
+// function checkCorrectAnswer() {
+//     let choices = document.getElementsByClassName("choice")
+//     for (let choice of choices){
+//         choice.addEventListener("click", e => {
+//             let selectAns = e.target;
+//             console.log(selectAns)
+//               if (selectAns.innerText === correctAns){
+//                  choice.classList.add("correct") 
+//                 increaseScore()
+//                 setTimeout(() => {
+//                     choice.classList.remove("correct")
+//                     }, 1000);
+                
+//              }else{
+//                    choice.classList.add("wrong")
+//                    increaseWrong()
+//                    setTimeout(() => {
+//                     choice.classList.remove("wrong")
+//                     }, 1000);
+//            } 
+          
+//            runGame()
+//         })
+       
+       
+//     }
+//     disableClick(choices)
+
+// }
+
+let choices = document.getElementsByClassName("choice")
+for (let choice of choices){
+    choice.addEventListener("click", e => {
+        let selectAns = e.target;
+        console.log(selectAns);
+        if (selectAns.innerText === currentQuestion.answer){
+            choice.classList.add("correct"); 
+        increaseScore()
+        }else{
+            choice.classList.add("wrong")
+            increaseWrong()
+    } 
+     disableClick();
+        setTimeout(runGame, 1000);
+})}
 
 
+function resetOptions(){
+    let choices = document.getElementsByClassName("choice");
+    for (let choice of choices){
+        choice.disabled = false;
+        choice.classList.remove("correct");
+        choice.classList.remove("wrong");
+    }
+}
