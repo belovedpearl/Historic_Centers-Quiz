@@ -145,17 +145,18 @@ function startGame(){
     welcomePage.classList.add("hide");
 
     runGame()
+    countdown()
 }
 
 
 
 function runGame(){
-    resetOptions();
+    resetOptions()
     let questionNumber = document.getElementById("questionNum");
     questionNumber.innerText = questioncounter++;
-   
+   //console.log(questioncounter)
     if (questioncounter > 10){
-        return questioncounter
+        stopGame()
         }else if(questioncounter <= 10){
         const questionIndex = Math.floor(Math.random() * 5);
         currentQuestion = questions[questionIndex];
@@ -173,9 +174,22 @@ function runGame(){
         choice4.innerText = currentQuestion.options[3];
         // Splice is used to remove the current question from the available questions to avoid repitition of questions
         questions.splice(questionIndex, 1) 
-        // chooseCorrect(currentQuestion)
     }
+    
 }
+
+function countdown(){
+   let counter = 60;
+    setInterval(()=>{
+    let time = document.getElementById("time");
+    time.innerText = counter--;
+     if(counter === 0){
+         time.innerText = "Time Up!!!"
+         stopGame()
+     }
+    }, 1000)
+    
+ }
 
 
 function disableClick(){
@@ -199,40 +213,6 @@ function increaseWrong(){
 }
 
 
-
-
-
-// New code
-// function checkCorrectAnswer() {
-//     let choices = document.getElementsByClassName("choice")
-//     for (let choice of choices){
-//         choice.addEventListener("click", e => {
-//             let selectAns = e.target;
-//             console.log(selectAns)
-//               if (selectAns.innerText === correctAns){
-//                  choice.classList.add("correct") 
-//                 increaseScore()
-//                 setTimeout(() => {
-//                     choice.classList.remove("correct")
-//                     }, 1000);
-                
-//              }else{
-//                    choice.classList.add("wrong")
-//                    increaseWrong()
-//                    setTimeout(() => {
-//                     choice.classList.remove("wrong")
-//                     }, 1000);
-//            } 
-          
-//            runGame()
-//         })
-       
-       
-//     }
-//     disableClick(choices)
-
-// }
-
 let choices = document.getElementsByClassName("choice")
 for (let choice of choices){
     choice.addEventListener("click", e => {
@@ -241,9 +221,14 @@ for (let choice of choices){
         if (selectAns.innerText === currentQuestion.answer){
             choice.classList.add("correct"); 
         increaseScore()
+        progressBar()
+        
         }else{
             choice.classList.add("wrong")
             increaseWrong()
+            // let questionImage = document.getElementById("questionImage");
+            // questionImage.classList.add("wrong-ans");
+            // setTimeout(function(){ questionImage.classList.remove("wrong-ans")}, 350)
     } 
      disableClick();
         setTimeout(runGame, 1000);
@@ -258,3 +243,35 @@ function resetOptions(){
         choice.classList.remove("wrong");
     }
 }
+
+ function stopGame(){
+    setTimeout(function (){
+        let restart = document.getElementById("restart");
+        restart.focus()
+    }, 360)
+
+document.body.classList.add("overlay")
+let score = document.getElementById("points").innerText;
+let wrong = document.getElementById("wrong").innerText;
+let rightAns = document.getElementById("rightAns");
+    rightAns.innerText = score;
+let totalScore = document.getElementById("totalScore");
+    totalScore.innerText = score * 10;
+
+}
+
+ function progressBar(){
+    let score = document.getElementById("points").innerText;
+    
+    let progressBar = document.querySelector(".progress-inner");
+    progressBar.style.transform = `scaleX(${score/10})`
+ }
+ function startOver(){
+    document.body.classList.remove("overlay");
+    questioncounter = 0;
+    let score = document.getElementById("points").innerText;
+    score.innerText = 0;
+    let wrong = document.getElementById("wrong").innerText;
+    wrong.innerText = 0;
+    window.location.reload()
+ }

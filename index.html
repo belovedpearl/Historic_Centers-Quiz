@@ -14,7 +14,7 @@
     <title>Historic Centers</title>
 </head>
 <body>
-
+  <div id="main-ui">
     <!-- Main page area -->
     <section id="firstPage">
         <h1> Historic Center Quiz </h1>
@@ -65,6 +65,21 @@
     <section id="game" class="hide">
         <img src="assets/images/quizImages/worldrep.webp" id="questionImage">
         <div id="optionArea">
+            <div class="progress">
+                <div class="boxes">
+                    <div class="box"></div>
+                    <div class="box"></div>
+                    <div class="box"></div>
+                    <div class="box"></div>
+                    <div class="box"></div>
+                    <div class="box"></div>
+                    <div class="box"></div>
+                    <div class="box"></div>
+                    <div class="box"></div>
+                    <div class="box"></div>
+                </div>
+                <div class="progress-inner"></div>
+            </div>
             <p id="option1" class="choice" aria-label="Option 1">Option1</p>
             <p id="option2" class="choice" aria-label="Option 2">Option2</p>
             <p id="option3" class="choice" aria-label="Option 3">Option3</p>
@@ -75,17 +90,23 @@
             <div id="points" class="circle">0</div>
             <p>Correct</p>
 
-            <div id="ansQues"><span id="questionNum">0</span>/10</div>
-
+            <div id="ansQues">Question<span id="questionNum">0</span>/10</div>
+            <div id="time"></div>
             <div id="wrong" class="circle">0</div>
             <p>Missed</p>
 
         </div>
     </section>
-
+  </div>
       <!-- End Page -->
-    <section class="hide">
-
+    <section id="endPage">
+        <div>
+         <h1>Historic Center Quiz</h1>
+         <p class="endMessage">You answered <span id="rightAns">0</span> questions right</p>
+         <p class="endMessage">Your score is <span id="totalScore">10</span>/ 100</p>
+         <br>
+        <button id="restart" onclick="startOver()">Start Over</button>
+        </div>
     </section>
 
     <script src="assets/js/script.js"></script>
